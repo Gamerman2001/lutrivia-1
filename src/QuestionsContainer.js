@@ -5,21 +5,30 @@ import Question from './Question.js'
 export default class QuestionsContainer extends React.Component{
 
   state = {
-    score: 0
+    questionLength: 1
   }
 
+  incrementQuestion = () => {
+    this.setState({
+    questionLength: this.state.questionLength === 5 ?  this.props.endGame /* this is not doing anything*/ : this.state.questionLength + 1
+    })
+    console.log(this.props)
+    debugger 
+  }
   allQuestions = (questions)=>(
     questions.map(q=>(
-      <Question score={this.state.score} text={q.text} answer={q.answer} />
+      <Question incrementQuestion={this.incrementQuestion} updateScore={this.props.updateScore} score={this.props.score} text={q.text} answer={q.answer} />
     ))
   )
+   
+  
+  render(){ 
 
-  render(){
     return (
       <div>
-        <p>Score: {this.state.score}</p>
+        <p>Score: {this.props.score}</p>
         <ul>
-          {this.allQuestions(this.props.question).slice(0,5)}
+          {this.allQuestions(this.props.question).slice(0,this.state.questionLength)}
         </ul>
       </div>
     );

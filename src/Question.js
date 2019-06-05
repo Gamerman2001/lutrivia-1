@@ -4,17 +4,13 @@ import './App.css';
 class Question extends React.Component{
 
   myScore = this.props.score
-
   addScore = (e) => {
     if (e.target.value === this.props.answer.toString()) {
-      this.setState({
-        score: this.myScore+=1
-      })
+      this.props.updateScore() 
+      this.props.incrementQuestion()
       e.target.style.backgroundColor = 'green'
     } else {
-      this.setState({
-        score: this.myScore+=0
-      })
+      this.props.incrementQuestion()
       e.target.style.backgroundColor = 'red'
     }
   }
